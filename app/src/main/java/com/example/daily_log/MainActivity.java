@@ -3,7 +3,9 @@ package com.example.daily_log;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     dbHelper mydb;
     EditText etDate, etSalah,etrakat;
     CheckBox cbJamat,cbTahajud;
-    Button btnSubmit, btnView;
+    Button btnSubmit, btnView,btncommit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         cbTahajud=findViewById(R.id.tahajudckbx);
         btnSubmit=findViewById(R.id.button);
         btnView=findViewById(R.id.button2);
+        btncommit=findViewById(R.id.commitbtn);
 
         mydb=new dbHelper(this);
 
@@ -39,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 boolean isTahajud = cbTahajud.isChecked();
                 Student student = new Student(date, salah, isJammat,rakat,isTahajud);
                 mydb.insertStudent(student);
+            }
+        });
+        btncommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goLink("https://github.com/AmeenaFatima01/Daily_Log/commits/main");
             }
         });
         btnView.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goLink(String s) {
+        Uri uri= Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW,uri));
     }
 
     private void showMessage(String title, String message) {
