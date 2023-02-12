@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+    dbHelper mydb;
     EditText etDate, etSalah,etrakat;
     CheckBox cbJamat,cbTahajud;
     Button btnSubmit, btnView;
